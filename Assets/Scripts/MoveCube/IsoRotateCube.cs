@@ -65,11 +65,11 @@ public class IsoRotateCube : MonoBehaviour
             currentSwipe = secondPressPos - firstPressPos;
             swipeAngle = (float)(Math.Atan2(currentSwipe.y, currentSwipe.x) * (180/Math.PI)); //in degrees, -180 to 180
             int swipeNumber = (int)Math.Round(6*swipeAngle/360);
-            double swipeDifference = Math.Abs(1-((2)%(6*swipeAngle/180))); // 0 to 1 how far from ideal
-            print(swipeDifference);
+            double swipeDifference = Math.Abs(((6*swipeAngle/180-1)-2*Math.Floor((6*swipeAngle/180-1)/2))-1); // 0 to 1 how far from ideal
 
+            print(swipeDifference);
             //check magnitude and angular direction against magnitude and forgiveness (how far from the 6 swipe directions is allowed, though intuitively where you swipe also impacts the angle but I didn't feel like making this even more complicated)
-            if (currentSwipe.magnitude > Swipe_threshold && swipeDifference > Swipe_forgiveness)
+            if (currentSwipe.magnitude > Swipe_threshold && swipeDifference < Swipe_forgiveness)
             {
                 IsoRotate(swipeNumber);
             }
