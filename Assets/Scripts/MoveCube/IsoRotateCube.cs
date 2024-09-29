@@ -51,6 +51,7 @@ public class IsoRotateCube : MonoBehaviour
         previousMousePosition = Input.mousePosition;
     }
 
+    
     //detect mouse swipes
     void DetectSwipe()
     {
@@ -76,31 +77,28 @@ public class IsoRotateCube : MonoBehaviour
         }
     }
 
-    void IsoRotate(int swipeNumber)
+    private void IsoRotate(int swipeNumber)
     {
-        if (swipeNumber == 2)
+        switch (swipeNumber)
         {
-            isotarget.transform.Rotate(-90,0,0,Space.World);
-        }
-        else if (swipeNumber == 1)
-        {
-            isotarget.transform.Rotate(0,0,90,Space.World);
-        }
-        else if (swipeNumber == 0)
-        {
-            isotarget.transform.Rotate(0,-90,0,Space.World);
-        }
-        else if (swipeNumber == -1)
-        {
-            isotarget.transform.Rotate(90,0,0,Space.World);
-        }
-        else if (swipeNumber == -2)
-        {
-            isotarget.transform.Rotate(0,0,-90,Space.World);
-        }
-        else if ((swipeNumber == 3) || (swipeNumber == -3)) 
-        {
-            isotarget.transform.Rotate(0,90,0,Space.World);
+            case 2:
+                isotarget.transform.Rotate(-90,0,0,Space.World);
+                break;
+            case 1:
+                isotarget.transform.Rotate(0,0,90,Space.World);
+                break;
+            case 0:
+                isotarget.transform.Rotate(0,-90,0,Space.World);
+                break;
+            case -1:
+                isotarget.transform.Rotate(90,0,0,Space.World);
+                break;
+            case -2:
+                isotarget.transform.Rotate(0,0,-90,Space.World);
+                break;
+            case 3 or -3:
+                isotarget.transform.Rotate(0,90,0,Space.World);
+                break;
         }
     }
 
