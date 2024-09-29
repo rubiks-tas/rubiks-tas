@@ -16,7 +16,7 @@ public class IsoRotateCube : MonoBehaviour
     Vector2 secondPressPos;
     Vector2 currentSwipe;
     float swipeAngle;
-    float speed = 200f;
+    float speed = 300f;
 
     
 
@@ -52,10 +52,10 @@ public class IsoRotateCube : MonoBehaviour
             currentSwipe = secondPressPos - firstPressPos;
             swipeAngle = (float)(Math.Atan2(currentSwipe.y, currentSwipe.x) * (180/Math.PI)); //in degrees, -180 to 180
             int swipeNumber = (int)Math.Round(6*swipeAngle/360);
-            double swipeDifference = Math.Abs((6*swipeAngle/180)%(2)-1);
+            double swipeDifference = Math.Abs(((2)%(6*swipeAngle/180))-1); // 0 to 1 how far from ideal
 
             //check magnitude and angular direction against magnitude and forgiveness (how far from the 6 swipe directions is allowed, though intuitively where you swipe also impacts the angle but I didn't feel like making this even more complicated)
-            if ((currentSwipe.magnitude > Swipe_threshold) && (swipeDifference < Swipe_forgiveness))
+            if (currentSwipe.magnitude > Swipe_threshold && swipeDifference > Swipe_forgiveness)
             {
                 IsoRotate(swipeNumber);
             }
@@ -66,27 +66,27 @@ public class IsoRotateCube : MonoBehaviour
     {
         if (swipeNumber == 2)
         {
-            isotarget.transform.Rotate(0,0,0,Space.World);
+            isotarget.transform.Rotate(-90,0,0,Space.World);
         }
         if (swipeNumber == 1)
         {
-            isotarget.transform.Rotate(0,0,0,Space.World);
+            isotarget.transform.Rotate(0,0,90,Space.World);
         }
         if (swipeNumber == 0)
         {
-            isotarget.transform.Rotate(0,0,0,Space.World);
+            isotarget.transform.Rotate(0,-90,0,Space.World);
         }
         if (swipeNumber == -1)
         {
-            isotarget.transform.Rotate(0,0,0,Space.World);
+            isotarget.transform.Rotate(90,0,0,Space.World);
         }
         if (swipeNumber == -2)
         {
-            isotarget.transform.Rotate(0,0,0,Space.World);
+            isotarget.transform.Rotate(0,0,-90,Space.World);
         }
-        if ((swipeNumber == 3) || (swipeNumber == -3))
+        if ((swipeNumber == 3) || (swipeNumber == -3)) 
         {
-            isotarget.transform.Rotate(0,0,0,Space.World);
+            isotarget.transform.Rotate(0,90,0,Space.World);
         }
     }
 
