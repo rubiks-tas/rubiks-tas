@@ -7,20 +7,17 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class IsoRotateCube : MonoBehaviour
+public class CornerSwipeRotate : MonoBehaviour
 {
-    public GameObject isotarget;
+    public GameObject rotateTarget;
     public float Swipe_threshold;
     public float Swipe_forgiveness;
     Vector2 firstPressPos;
     Vector2 secondPressPos;
     Vector2 currentSwipe;
     float swipeAngle;
-    float speed = 300f;
     Vector3 previousMousePosition;
     Vector3 mouseDelta;
-
-    
 
     // Start is called before the first frame update
     void Start()
@@ -43,15 +40,13 @@ public class IsoRotateCube : MonoBehaviour
             transform.rotation = Quaternion.Euler(-mouseDelta.y, -mouseDelta.x, mouseDelta.y) * transform.rotation;
         }
         //turn towards target, maybe put in another script if multiple things are going to edit cube target
-        else if (transform.rotation != isotarget.transform.rotation)
+        else if (transform.rotation != rotateTarget.transform.rotation)
         {
-            var step = speed * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, isotarget.transform.rotation, step);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotateTarget.transform.rotation, 300f * Time.deltaTime);
         }
         previousMousePosition = Input.mousePosition;
     }
 
-    
     //detect mouse swipes
     void DetectSwipe()
     {
@@ -81,22 +76,22 @@ public class IsoRotateCube : MonoBehaviour
         switch (swipeNumber)
         {
             case 2:
-                isotarget.transform.Rotate(-90,0,0,Space.World);
+                rotateTarget.transform.Rotate(-90,0,0,Space.World);
                 break;
             case 1:
-                isotarget.transform.Rotate(0,0,90,Space.World);
+                rotateTarget.transform.Rotate(0,0,90,Space.World);
                 break;
             case 0:
-                isotarget.transform.Rotate(0,-90,0,Space.World);
+                rotateTarget.transform.Rotate(0,-90,0,Space.World);
                 break;
             case -1:
-                isotarget.transform.Rotate(90,0,0,Space.World);
+                rotateTarget.transform.Rotate(90,0,0,Space.World);
                 break;
             case -2:
-                isotarget.transform.Rotate(0,0,-90,Space.World);
+                rotateTarget.transform.Rotate(0,0,-90,Space.World);
                 break;
             case 3 or -3:
-                isotarget.transform.Rotate(0,90,0,Space.World);
+                rotateTarget.transform.Rotate(0,90,0,Space.World);
                 break;
         }
     }

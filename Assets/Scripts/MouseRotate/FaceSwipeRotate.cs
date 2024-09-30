@@ -7,20 +7,17 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class FaceRotateCube : MonoBehaviour
+public class FaceSwipeRotate : MonoBehaviour
 {
-    public GameObject facetarget;
+    public GameObject rotateTarget;
     public float Swipe_threshold;
     public float Swipe_forgiveness;
     Vector2 firstPressPos;
     Vector2 secondPressPos;
     Vector2 currentSwipe;
     float swipeAngle;
-    float speed = 300f;
     Vector3 previousMousePosition;
     Vector3 mouseDelta;
-
-    
 
     // Start is called before the first frame update
     void Start()
@@ -43,15 +40,13 @@ public class FaceRotateCube : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, -mouseDelta.x, mouseDelta.y) * transform.rotation;
         }
         //turn towards target, maybe put in another script if multiple things are going to edit cube target
-        else if (transform.rotation != facetarget.transform.rotation)
+        else if (transform.rotation != rotateTarget.transform.rotation)
         {
-            var step = speed * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, facetarget.transform.rotation, step);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotateTarget.transform.rotation, 300f * Time.deltaTime);
         }
         previousMousePosition = Input.mousePosition;
     }
 
-    
     //detect mouse swipes
     void DetectSwipe()
     {
@@ -81,16 +76,16 @@ public class FaceRotateCube : MonoBehaviour
         switch (swipeNumber)
         {
             case 1:
-                facetarget.transform.Rotate(0,0,90,Space.World);
+                rotateTarget.transform.Rotate(0,0,90,Space.World);
                 break;
             case 0:
-                facetarget.transform.Rotate(0,-90,0,Space.World);
+                rotateTarget.transform.Rotate(0,-90,0,Space.World);
                 break;
             case -1:
-                facetarget.transform.Rotate(0,0,-90,Space.World);
+                rotateTarget.transform.Rotate(0,0,-90,Space.World);
                 break;
             case 2 or -2:
-                facetarget.transform.Rotate(0,90,0,Space.World);
+                rotateTarget.transform.Rotate(0,90,0,Space.World);
                 break;
         }
     }

@@ -7,13 +7,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class FreeRotateCube : MonoBehaviour
+public class FreeRotate : MonoBehaviour
 {
     Vector3 previousMousePosition;
     Vector3 mouseDelta;
     float scrollDelta;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -23,11 +21,6 @@ public class FreeRotateCube : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        Drag();
-    }
-
-    void Drag()
     {
         if(Input.GetMouseButton(1))
         {
@@ -42,5 +35,4 @@ public class FreeRotateCube : MonoBehaviour
         //turn towards target, maybe put in another script if multiple things are going to edit cube target
         previousMousePosition = Input.mousePosition;
     }
-
 }
